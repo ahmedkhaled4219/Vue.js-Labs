@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 2</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./style.css" rel="stylesheet" />
+    <script src="./vueversion3.js"></script>
+  </head>
+  <body>
+    <div id="mainapp" class="container mt-5">
+      <div v-if="!showData">
+        <form ref="form" @submit.prevent="submitForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              v-model="formData.name"
+              placeholder="Enter name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="university">University</label>
+            <input
+              type="text"
+              class="form-control"
+              id="university"
+              v-model="formData.university"
+              placeholder="Enter university"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Gender</label><br />
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="male"
+                value="male"
+                v-model="formData.gender"
+                required
+              />
+              <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="female"
+                value="female"
+                v-model="formData.gender"
+                required
+              />
+              <label class="form-check-label" for="female">Female</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Major</label><br />
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="design"
+                value="design"
+                v-model="formData.major"
+                required
+              />
+              <label class="form-check-label" for="design">Design</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="networking"
+                value="networking"
+                v-model="formData.major"
+                required
+              />
+              <label class="form-check-label" for="networking"
+                >Networking</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="development"
+                value="development"
+                v-model="formData.major"
+                required
+              />
+              <label class="form-check-label" for="development"
+                >Development</label
+              >
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Next</button>
+        </form>
+      </div>
+
+      <div v-if="showData">
+        <h3>Entered Data:</h3>
+        <p><strong>Name:</strong> {{ formData.name }}</p>
+        <p><strong>University:</strong> {{ formData.university }}</p>
+        <p><strong>Gender:</strong> {{ formData.gender }}</p>
+        <p><strong>Major:</strong> {{ formData.major }}</p>
+        <button @click="goBack" class="btn btn-primary mt-3 mr-2">Back</button>
+        <button @click="submitData" class="btn btn-success mt-3">Submit</button>
+      </div>
+    </div>
+
+    <script>
+      Vue.createApp({
+        data: () => ({
+          formData: {
+            name: "",
+            university: "",
+            gender: "",
+            major: "",
+          },
+          showData: false,
+        }),
+        methods: {
+          submitForm() {
+            if (this.$refs.form.checkValidity()) {
+              this.showData = true;
+            } else {
+              alert("Error");
+            }
+          },
+          goBack() {
+            this.showData = false;
+          },
+          submitData() {
+            console.log(this.formData);
+          },
+        },
+      }).mount("#mainapp");
+    </script>
+  </body>
+</html>
